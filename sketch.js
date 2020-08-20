@@ -22,20 +22,23 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
+	roof = new Roof(width/2, height/4, width/7, 20);
+	bobd = 40;
+	sbpx = width/2;
+	sbpy = height/4 + 500;
+
 	//Create the Bodies Here.
-	bobObject1 = new Bob(340, 400, 30);
-	bobObject2 = new Bob(370, 400, 30);
-	bobObject3 = new Bob(400, 400, 30);
-	bobObject4 = new Bob(430, 400, 30);
-	bobObject5 = new Bob(460, 400, 30);
+	bobObject1 = new Bob(sbpx - bobd*2, sbpy, bobd);
+	bobObject2 = new Bob(sbpx - bobd, sbpy, bobd);
+	bobObject3 = new Bob(sbpx, sbpy, bobd);
+	bobObject4 = new Bob(sbpx+bobd, spby, bobd);
+	bobObject5 = new Bob(sbpx+bobd*2, sbpy, bobd);
 
-	roof = new Roof(400, 100, 500, 20);
-
-	rope1 = new Rope(bobObject1.body, roof.body, -60,0);
-	rope2 = new Rope(bobObject2.body, roof.body, -30,0);
+	rope1 = new Rope(bobObject1.body, roof.body, -bobd*2,0);
+	rope2 = new Rope(bobObject2.body, roof.body, -bobd*1,0);
 	rope3 = new Rope(bobObject3.body, roof.body, 0,0);
-	rope4 = new Rope(bobObject4.body, roof.body, 30,0);
-	rope5 = new Rope(bobObject5.body, roof.body, 60,0);
+	rope4 = new Rope(bobObject4.body, roof.body, bobd*1,0);
+	rope5 = new Rope(bobObject5.body, roof.body, bobd*2,0);
 
 	Engine.run(engine);
 }
@@ -45,9 +48,6 @@ function draw() {
   rectMode(CENTER);
   background(227, 227, 227);
   
-  if(keyCode === UP_ARROW){
-	  Matter.Body.setPosition(bobObject1.body,{x:100, y:100});
-  }
   bobObject1.display();
   bobObject2.display();
   bobObject3.display();
@@ -62,10 +62,21 @@ function draw() {
   rope4.display();
   rope5.display();
 
-
   drawSprites();
- 
 }
 
+function keyPressed(){
+	if(keyCode === UP_ARROW){
+		Matter.Body.applyForce(bobObject1.body,bobObject1.body.position,{x:-50, y:-45});
+	}
+}
+ /*function drawLine(constraint){
+	bobBodyPosition = constraint.bodyA.position;
+	roofBodyPosition = constraint.bodyB.position;
+	roofBodyOffset = contraint.pointB;
+	roofBodyx = roofBodyPosition.x + roofBodyOffset.x;
+	roofBodyy = roofBodyPosition.y + roofBodyOffset.y;
+	line(bobBodyPosition.x, bobBodyPosition.y, roofBodyx, roofBodyy)
+ }*/
 
 
