@@ -9,6 +9,7 @@ const Constraint = Matter.Constraint;
 var bobObject;
 var roof;
 var rope;
+var sbpx, sbpy;
 
 function preload()
 {
@@ -22,7 +23,7 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	roof = new Roof(width/2, height/4, width/7, 20);
+	roof = new Roof(width/2, height/4, width/3, 20);
 	bobd = 40;
 	sbpx = width/2;
 	sbpy = height/4 + 500;
@@ -31,7 +32,7 @@ function setup() {
 	bobObject1 = new Bob(sbpx - bobd*2, sbpy, bobd);
 	bobObject2 = new Bob(sbpx - bobd, sbpy, bobd);
 	bobObject3 = new Bob(sbpx, sbpy, bobd);
-	bobObject4 = new Bob(sbpx+bobd, spby, bobd);
+	bobObject4 = new Bob(sbpx+bobd, sbpy, bobd);
 	bobObject5 = new Bob(sbpx+bobd*2, sbpy, bobd);
 
 	rope1 = new Rope(bobObject1.body, roof.body, -bobd*2,0);
